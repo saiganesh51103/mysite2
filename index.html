@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adidas Product Showcase</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('https://images.unsplash.com/photo-1606813909024-5fd3dfd33a2e') no-repeat center center fixed;
+      background-size: cover;
+    }
+    header, footer {
+      background-color: rgba(0,0,0,0.7);
+      color: white;
+      padding: 1em;
+      text-align: center;
+    }
+    nav {
+      background-color: #111;
+      overflow: hidden;
+    }
+    nav a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+    nav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    .content {
+      padding: 2em;
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+    .search-sort {
+      margin-bottom: 20px;
+    }
+    .product {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      width: 300px;
+      overflow: hidden;
+    }
+    .card img {
+      width: 100%;
+    }
+    .card-content {
+      padding: 1em;
+    }
+    .card button {
+      background-color: black;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      width: 100%;
+    }
+    .card button:hover {
+      background-color: #333;
+    }
+    iframe {
+      width: 100%;
+      height: 300px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Adidas Store</h1>
+    <p>Your go-to destination for premium Adidas products</p>
+  </header>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#products">Products</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="content">
+    <div class="search-sort">
+      <input type="text" placeholder="Search products..." oninput="filterProducts(this.value)" />
+      <select onchange="sortProducts(this.value)">
+        <option value="default">Sort By</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+      </select>
+    </div>
+
+    <div class="product" id="product-list">
+      <div class="card" data-name="Ultraboost" data-price="180">
+        <img src="https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/0a7f7ac52b3a4eaf9824ad3400e0b1ab_9366/Ultraboost_Light_Shoes_Black_GY9351_01_standard.jpg" alt="Ultraboost" />
+        <div class="card-content">
+          <h3>Ultraboost Light</h3>
+          <p>High-performance running shoes with responsive cushioning.</p>
+          <p><strong>$180</strong></p>
+          <button>Buy Now</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="Superstar" data-price="90">
+        <img src="https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/56c7d0ea74944de39aa3ac7f010b49f4_9366/Superstar_Shoes_White_FV3284_01_standard.jpg" alt="Superstar" />
+        <div class="card-content">
+          <h3>Superstar</h3>
+          <p>Iconic style from the court to the street.</p>
+          <p><strong>$90</strong></p>
+          <button>Buy Now</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="NMD" data-price="140">
+        <img src="https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/3f45d70f5a10490592a1ad9e012e34f0_9366/NMD_R1_Shoes_Black_GZ9260_01_standard.jpg" alt="NMD" />
+        <div class="card-content">
+          <h3>NMD R1</h3>
+          <p>Urban-inspired design with innovative technology.</p>
+          <p><strong>$140</strong></p>
+          <button>Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <iframe src="https://www.youtube.com/embed/Lf4sc3kjsHk" frameborder="0" allowfullscreen></iframe>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Adidas Online Store. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function filterProducts(query) {
+      query = query.toLowerCase();
+      document.querySelectorAll('.card').forEach(card => {
+        const name = card.getAttribute('data-name').toLowerCase();
+        card.style.display = name.includes(query) ? 'block' : 'none';
+      });
+    }
+
+    function sortProducts(criteria) {
+      const container = document.getElementById('product-list');
+      const cards = Array.from(container.children);
+      if (criteria === 'price-asc') {
+        cards.sort((a, b) => a.getAttribute('data-price') - b.getAttribute('data-price'));
+      } else if (criteria === 'price-desc') {
+        cards.sort((a, b) => b.getAttribute('data-price') - a.getAttribute('data-price'));
+      }
+      cards.forEach(card => container.appendChild(card));
+    }
+  </script>
+</body>
+</html>
